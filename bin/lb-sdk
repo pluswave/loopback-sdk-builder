@@ -32,15 +32,17 @@ var argv = optimist
   .describe('f', 'Generate only FireLoop SDK + Auth Services')
   .describe('q', 'quiet mode - no console output (forces -w)')
   .describe('t', 'Enable Typescript default true ( React Only )')
+  .describe('s', 'Auth Storage Prefix for this sdk ($LoopBackSDK$)')
   .default('l', 'angular2')
   .default('d', 'ng2web')
   .default('i', 'enabled')
   .default('w', 'disabled')
   .default('v', 'disabled')
   .default('f', 'disabled')
+  .default('s', '$LoopBackSDK$')
   .default('q', false)
   .default('t', true)
-  .alias({ u: 'url', m: 'module-name', l: 'library', i: 'io', n: 'ngrx', d: 'driver', w: 'wipe', v: 'default-values', f: 'fireloop-only', q: 'quiet', t: 'typescript' })
+  .alias({ u: 'url', m: 'module-name', l: 'library', i: 'io', n: 'ngrx', d: 'driver', w: 'wipe', v: 'default-values', f: 'fireloop-only', q: 'quiet', t: 'typescript', s:'auth-storage-prefix' })
   .demand(1)
   .argv;
 /**
@@ -104,7 +106,8 @@ var context = {
   defaultValue: argv['v'] || 'disabled',
   fireloopOnly: argv['f'] || 'disabled',
   quiet: argv['q'] || false,
-  isTyped: argv['t'] == 'false' ? false : true
+  isTyped: argv['t'] == 'false' ? false : true,
+  authStoragePrefix: argv['auth-storage-prefix'] || '$LoopBackSDK',
 };
 
 if (context.quiet) {
